@@ -1,0 +1,22 @@
+{% extends '../user/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">{{ title }}</h5>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="id_name" class="form-label">Tag Name</label>
+          {{ form.name }}
+        </div>
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="{% url 'blog:tag_list' %}" class="btn btn-secondary">List</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

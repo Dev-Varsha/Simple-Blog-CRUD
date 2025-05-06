@@ -1,0 +1,48 @@
+{% extends '../user/base.html' %}
+{% load static %}
+{% block title %}Blog Detail{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .fixed-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow rounded overflow-hidden" style="max-width: 540px; margin: auto;">
+
+            {% if detail_view.image %}
+            <img src="{{ detail_view.image.url }}" class="card-img-top fixed-img" alt="Blog image">
+            {% else %}
+                <img src="{% static 'images/no_image.jpg' %}" class="card-img-top" alt="No image available">
+            {% endif %}
+
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2 text-muted small">
+                    <span>
+                        {% for tag in detail_view.tags.all %}
+                            <span class="badge bg-secondary">{{ tag.name }}</span>
+                        {% empty %}
+                            <span class="text-muted">No tags</span>
+                        {% endfor %}
+                    </span>                    
+                    <span>{{ detail_view.created_at|timesince }} 1 day ago</span>
+                </div>
+                <h5 class="card-title fw-bold">{{ detail_view.title }}</h5>
+                <p class="card-text">{{ detail_view.content|truncatewords:3000 }}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
